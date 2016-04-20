@@ -1,9 +1,8 @@
 {% include base_path %}
 
-{% if paginator.total_pages > 1 %}
+{% if paginator.total_pages %}
 <nav class="pagination">
   <ul>
-    {% comment %} Link for previous page {% endcomment %}
     {% if paginator.previous_page %}
       {% if paginator.previous_page == 1 %}
         <li><a href="{{ base_path }}/">{{ site.data.ui-text[site.locale].pagination_previous }}</a></li>
@@ -14,7 +13,6 @@
       <li><a href="#" class="disabled"><span aria-hidden="true">{{ site.data.ui-text[site.locale].pagination_previous }}</span></a></li>
     {% endif %}
 
-    {% comment %} First page {% endcomment %}
     {% if paginator.page == 1 %}
       <li><a href="#" class="disabled current">1</a></li>
     {% else %}
@@ -24,7 +22,6 @@
     {% assign page_start = 2 %}
     {% if paginator.page > 4 %}
       {% assign page_start = paginator.page | minus: 2 %}
-      {% comment %} Ellipsis for truncated links {% endcomment %}
       <li><a href="#" class="disabled">&hellip;</a></li>
     {% endif %}
 
@@ -38,10 +35,8 @@
       {% if index == paginator.page %}
         <li><a href="{{ base_path }}/page{{ index }}/" class="disabled current">{{ index }}</a></li>
       {% else %}
-        {% comment %} Distance from current page and this link {% endcomment %}
         {% assign dist = paginator.page | minus: index %}
         {% if dist < 0 %}
-          {% comment %} Distance must be a positive value {% endcomment %}
           {% assign dist = 0 | minus: dist %}
         {% endif %}
         <li><a href="{{ base_path }}/page{{ index }}/">{{ index }}</a></li>
